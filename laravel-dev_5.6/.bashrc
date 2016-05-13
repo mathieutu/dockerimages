@@ -120,6 +120,7 @@ function h() {
         history 50 | grep $1
     fi
 }
+shopt -s histverify
 
 alias ..='cd ..'
 alias ...='cd ../..'
