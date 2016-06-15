@@ -18,7 +18,7 @@ apt-get install -y software-properties-common && \
 apt-get update && \
 apt-get upgrade -y
 
-RUN BUILD_PACKAGES="supervisor nginx php5-fpm git curl php5-mysqlnd php5-curl php5-gd php5-intl php5-mcrypt php5-sqlite php5-tidy php5-xmlrpc php5-xsl php5-pgsql php5-ldap pwgen" && \
+RUN BUILD_PACKAGES="supervisor nginx php5-fpm git curl php5-mysqlnd php5-curl php5-gd php5-intl php5-mcrypt php5-sqlite php5-tidy php5-xmlrpc php5-xsl php5-pgsql php5-ldap pwgen php5-xdebug vim" && \
 apt-get -y install $BUILD_PACKAGES
 
 RUN curl -sL https://deb.nodesource.com/setup | bash - && \ 
@@ -56,6 +56,9 @@ sed -i -e "s/pm.start_servers = 2/pm.start_servers = 3/g" /etc/php5/fpm/pool.d/w
 sed -i -e "s/pm.min_spare_servers = 1/pm.min_spare_servers = 2/g" /etc/php5/fpm/pool.d/www.conf && \
 sed -i -e "s/pm.max_spare_servers = 3/pm.max_spare_servers = 4/g" /etc/php5/fpm/pool.d/www.conf && \
 sed -i -e "s/pm.max_requests = 500/pm.max_requests = 200/g" /etc/php5/fpm/pool.d/www.conf
+
+# tweak php-cli config
+RUN sed -i -e "a xdebug.max_nesting_level=500" /etc/php5/cli/php.ini
 
 # fix ownership of sock file for php-fpm
 RUN sed -i -e "s/;listen.mode = 0660/listen.mode = 0750/g" /etc/php5/fpm/pool.d/www.conf && \
