@@ -1,30 +1,18 @@
-FROM ubuntu
+FROM ubuntu:trusty
 MAINTAINER Mathieu TUDISCO <dev@mathieutu.ovh>
 #Inpired by richarvey/nginx-php-fpm
 
+# Add sources and update
+RUN apt-get update && apt-get upgrade -y
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install supervisor nginx git curl vim php5-fpm php5-mysqlnd php5-curl php5-gd php5-intl php5-mcrypt php5-sqlite php5-xdebug php5-cli
 
-# Update base image
-# Add sources for latest nginx
-# Install software requirements
-RUN apt-get update && \
-apt-get install -y software-properties-common && \
-apt-get update && \
-apt-get upgrade -y
-
-RUN BUILD_PACKAGES="supervisor nginx php5-fpm git curl php5-mysqlnd php5-curl php5-gd php5-intl php5-mcrypt php5-sqlite php5-xdebug vim" && \
-apt-get -y install $BUILD_PACKAGES
-
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - && \
-echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list && \
-sudo apt-get update && sudo apt-get install yarn
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && echo "deb http://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list && \
+curl -sL https://deb.nodesource.com/setup_7.x | bash - 
+RUN DEBIAN_FRONTEND=noninteractive apt-get install nodejs yarn
 
 RUN curl -s https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
 
-RUN apt-get remove --purge -y software-properties-common && \
-apt-get autoremove -y && \
-apt-get clean && \
-apt-get autoclean && \
-echo -n > /var/lib/apt/extended_states && \
+RUN echo -n > /var/lib/apt/extended_states && \
 rm -rf /var/lib/apt/lists/* && \
 rm -rf /usr/share/man/?? && \
 rm -rf /usr/share/man/??_*
@@ -85,7 +73,7 @@ WORKDIR /usr/share/nginx/html
 
 # add PHPinfo file
 ADD src/index.php /usr/share/nginx/html/index.php
-RUN chown -Rf www-data.www-data /var/www/html/
+RUN chown -Rf www-data:www-data /usr/share/nginx/
 
 # add aliases and path
 ADD .bash_profile /root/.bash_profile
