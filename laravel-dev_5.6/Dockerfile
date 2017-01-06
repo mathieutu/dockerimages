@@ -76,7 +76,7 @@ ADD src/index.php /usr/share/nginx/html/index.php
 RUN chown -Rf www-data:www-data /usr/share/nginx/
 
 # add aliases and path
-ADD .bash_profile /root/.bash_profile
+ADD .bashrc /root/.bashrc
 
 # Expose Ports
 EXPOSE 443
