@@ -5,7 +5,7 @@ MAINTAINER Mathieu TUDISCO <dev@mathieutu.ovh>
 # Add sources and update
 RUN apt-get update && \
 apt-get install -y software-properties-common && \
-add-apt-repository ppa:ondrej/php5-5.6 && \
+add-apt-repository ppa:ondrej/php && \
 apt-get update && apt-get upgrade -y
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install supervisor nginx git curl vim php5-fpm php5-mysqlnd php5-curl php5-gd php5-intl php5-mcrypt php5-sqlite php5-xdebug php5-cli
 

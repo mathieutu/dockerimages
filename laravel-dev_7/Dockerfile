@@ -46,7 +46,7 @@ find /etc/php/7.0/cli/conf.d/ -name "*.ini" -exec sed -i -re 's/^(\s*)#(.*)/\1;\
 
 
 # mycrypt conf
-RUN php7enmod mcrypt
+RUN phpenmod mcrypt
 
 # nginx site conf
 RUN rm -Rf /etc/nginx/conf.d/* && \
