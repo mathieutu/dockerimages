@@ -3,8 +3,10 @@ MAINTAINER Mathieu TUDISCO <dev@mathieutu.ovh>
 #Inpired by richarvey/nginx-php-fpm
 
 # Add sources and update
-RUN add-apt-repository ppa:ondrej/php5-5.6
-RUN apt-get update && apt-get upgrade -y
+RUN apt-get update && \
+apt-get install -y software-properties-common && \
+add-apt-repository ppa:ondrej/php5-5.6 && \
+apt-get update && apt-get upgrade -y
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install supervisor nginx git curl vim php5-fpm php5-mysqlnd php5-curl php5-gd php5-intl php5-mcrypt php5-sqlite php5-xdebug php5-cli
 
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && echo "deb http://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
@@ -12,11 +14,6 @@ curl -sL https://deb.nodesource.com/setup_7.x | bash -
 RUN DEBIAN_FRONTEND=noninteractive apt-get install nodejs yarn
 
 RUN curl -s https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
-
-RUN echo -n > /var/lib/apt/extended_states && \
-rm -rf /var/lib/apt/lists/* && \
-rm -rf /usr/share/man/?? && \
-rm -rf /usr/share/man/??_*
 
 # tweak nginx config
 RUN sed -i -e"s/worker_processes  1/worker_processes 5/" /etc/nginx/nginx.conf && \
