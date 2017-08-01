@@ -4,8 +4,8 @@ MAINTAINER Mathieu TUDISCO <dev@mathieutu.ovh>
 
 # Add sources and update
 RUN apt-get update && apt-get upgrade -y
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install supervisor nginx git curl vim
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install php7.0-fpm php7.0-mysqlnd php7.0-curl php7.0-gd php7.0-intl php7.0-mcrypt php7.0-sqlite php-xdebug php7.0-cli php-imagick php-mbstring
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install supervisor nginx git curl vim zip
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install php7.0-fpm php7.0-mysqlnd php7.0-curl php7.0-gd php7.0-intl php7.0-mcrypt php7.0-sqlite php-xdebug php7.0-cli php-imagick php-mbstring php-xml
 
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && echo "deb http://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
 curl -sL https://deb.nodesource.com/setup_7.x | bash - 

@@ -6,8 +6,8 @@ MAINTAINER Mathieu TUDISCO <dev@mathieutu.ovh>
 RUN apt-get update && apt-get -y install software-properties-common
 RUN LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php && apt-get update -y
 RUN apt-get upgrade -y
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install supervisor nginx git curl vim
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install php5.6-fpm php5.6-mysqlnd php5.6-curl php5.6-gd php5.6-intl php5.6-mcrypt php5.6-sqlite php-xdebug php5.6-cli php-imagick php-mbstring
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install supervisor nginx git curl vim zip
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install php5.6-fpm php5.6-mysqlnd php5.6-curl php5.6-gd php5.6-intl php5.6-mcrypt php5.6-sqlite php-xdebug php5.6-cli php-imagick php-mbstring php-xml
 
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && echo "deb http://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
 curl -sL https://deb.nodesource.com/setup_7.x | bash - 
