@@ -37,8 +37,13 @@ sed -i -e "s/pm.max_children = 5/pm.max_children = 9/g" /etc/php/7.1/fpm/pool.d/
 sed -i -e "s/pm.start_servers = 2/pm.start_servers = 3/g" /etc/php/7.1/fpm/pool.d/www.conf && \
 sed -i -e "s/pm.min_spare_servers = 1/pm.min_spare_servers = 2/g" /etc/php/7.1/fpm/pool.d/www.conf && \
 sed -i -e "s/pm.max_spare_servers = 3/pm.max_spare_servers = 4/g" /etc/php/7.1/fpm/pool.d/www.conf && \
-sed -i -e "s/pm.max_requests = 500/pm.max_requests = 200/g" /etc/php/7.1/fpm/pool.d/www.conf && \
-sed -i -e "s/zend_extension=xdebug.so/#zend_extension=xdebug.so/g" /etc/php/7.1/fpm/conf.d/20-xdebug.ini
+sed -i -e "s/pm.max_requests = 500/pm.max_requests = 200/g" /etc/php/7.1/fpm/pool.d/www.conf
+
+RUN echo "xdebug.remote_handler=dbgp" >> /etc/php/7.1/fpm/conf.d/20-xdebug.ini
+RUN echo "xdebug.remote_port=9000" >> /etc/php/7.1/fpm/conf.d/20-xdebug.ini
+RUN echo "xdebug.remote_connect_back=0" >> /etc/php/7.1/fpm/conf.d/20-xdebug.ini
+RUN echo "xdebug.remote_log=/tmp/xdebug.log"  >> /etc/php/7.1/fpm/conf.d/20-xdebug.ini
+RUN echo "xdebug.remote_autostart=false "  >> /etc/php/7.1/fpm/conf.d/20-xdebug.ini
 
 
 # tweak php-cli config
