@@ -10,7 +10,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install supervisor nginx git curl 
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install php5.6-fpm php5.6-mysqlnd php5.6-curl php5.6-gd php5.6-intl php5.6-mcrypt php5.6-sqlite php-xdebug php5.6-cli php-imagick php-mbstring php-xml
 
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && echo "deb http://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
-curl -sL https://deb.nodesource.com/setup_7.x | bash - 
+curl -sL https://deb.nodesource.com/setup_8.x | bash -
 RUN DEBIAN_FRONTEND=noninteractive apt-get install nodejs yarn
 
 RUN curl -s https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
